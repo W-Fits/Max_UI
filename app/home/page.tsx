@@ -1,17 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Menu, Shirt, Camera, Archive, Bookmark, Settings } from "lucide-react";
+import { Menu, Shirt, Camera, Archive, Bookmark, Settings, Cloud } from "lucide-react";
 import Link from "next/link";
 
 export default function WFitsDashboard() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const nav = [
-    { href: "/outfit", label: "Generate Outfit", icon: <Shirt size={20} /> },
+    { href: "/outfits", label: "Generate Outfit", icon: <Shirt size={20} /> },
     { href: "/camera", label: "Add Item", icon: <Camera size={20} /> },
-    { href: "/archive", label: "Saved Outfits", icon: <Archive size={20} /> },
-    { href: "/bookmarks", label: "Bookmarks", icon: <Bookmark size={20} /> },
+    { href: "/saved", label: "Saved Outfits", icon: <Archive size={20} /> },
+    { href: "/weather", label: "Weather", icon: <Cloud size={20} /> },
+    { href: "/bookmark", label: "Bookmarks", icon: <Bookmark size={20} /> },
     { href: "/setting", label: "Settings", icon: <Settings size={20} /> },
   ];
 
