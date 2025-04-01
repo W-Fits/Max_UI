@@ -1,10 +1,29 @@
 "use client";  // 👈 Ensures client-side rendering for hooks
 
 import Head from "next/head";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(true);
+  const [weather, setWeather] = useState(null);
+  const CITY = "London";
+  const API_KEY = "d385f3d968ad4b01ae2112304250104"; //  Replace with the WeatherAPI key
+
+  useEffect(() => {
+    const fetchWeather = async () => {
+      try {
+        const response = await axios.get(
+          `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${CITY}&aqi=no`
+        );
+        setWeather(response.data);
+      } catch (error) {
+        console.error("Error fetching weather data:", error);
+      }
+    };
+
+    fetchWeather();
+  }, []);
 
   return (
     <div className={`${darkMode ? "bg-gray-900 text-gray-100" : "bg-gray-100 text-gray-900"} min-h-screen p-4 transition-all duration-300`}>
@@ -24,11 +43,11 @@ export default function Home() {
       {/* Weather/Temp Section */}
       <div className={`${darkMode ? "bg-gray-800" : "bg-white"} p-4 my-4 rounded-md shadow-md`}>
         <div className="flex justify-between">
-          <span>🌤️ WEATHER/TEMP</span>
+          <span>🌤️ {weather ? `${weather.current.temp_c}°C` : "Loading..."}</span>
           <span>⏰</span>
         </div>
         <p className={`${darkMode ? "text-gray-400" : "text-gray-500"} text-sm mt-2`}>
-          DESCRIPTION OF ALGORITHM OUTFIT e.g., chose warm outfit because it is cold
+          {weather ? `Condition: ${weather.current.condition.text}` : "Fetching weather..."}
         </p>
       </div>
 
